@@ -1,0 +1,76 @@
+h1 {
+    font-family: 'Arbutus', serif;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+body {
+    font-family: 'BioRhyme', serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.game-des {
+    text-align: center;
+}
+
+.game-box {
+    flex: 1;
+    width: 90vw;
+    display: flex;
+    justify-content: space-around;
+    border: 2px dotted black;
+    border-radius: 10px;
+}
+
+.player-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.score-cont {
+    border: 2px solid;
+    padding: 0.2rem 1rem;
+    border-radius: 5px;
+    background-color: gold;
+}
+
+.gif-cont {
+    width: 100%;
+}
+
+.computer-cont .gif-cont {
+    transform: rotateY(180deg);
+}
+
+.choice-cont {
+    height: 3rem;
+}
+
+button {
+    margin: 2rem;
+    padding: 0.5rem 1rem;
+    background-color: rgb(125, 155, 255);
+    font-size: 1rem;
+    font-family: 'BioRhyme', serif;
+    font-weight: bold;
+    border: 2px solid rgb(0, 59, 252);
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    box-shadow: 1px 1px 0px rgb(79, 93, 139),
+                2px 2px 0px rgb(79, 93, 139),
+                3px 3px 0px rgb(79, 93, 139),
+                4px 4px 0px rgb(79, 93, 139)
+}
+
+.commentary {
+     margin-bottom: 0;
+}
