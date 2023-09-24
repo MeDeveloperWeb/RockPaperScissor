@@ -124,7 +124,7 @@ function showResult(userChoice, computerChoice, winner, reset = false) {
             userScore++;
             userScoreBox.textContent = userScore;
             resultBox.textContent = `You win this round! ${userChoice} beats ${computerChoice}`;
-            resultBox.style.color = "#016201";
+            resultBox.style.color = "green";
             userGIFCont.style.borderColor = "green";
             computerGIFCont.style.borderColor = "red";
             break;
@@ -133,14 +133,14 @@ function showResult(userChoice, computerChoice, winner, reset = false) {
             computerScore++;
             computerScoreBox.textContent = computerScore;
             resultBox.textContent = `You lose this round! ${computerChoice} beats ${userChoice}`;
-            resultBox.style.color = "#b60303";
+            resultBox.style.color = "red";
             userGIFCont.style.borderColor = "red";
             computerGIFCont.style.borderColor = "green";
             break;
 
         default:
             resultBox.textContent = "It's a Tie.";
-            resultBox.style.color = "#020283";
+            resultBox.style.color = "blue";
             userGIFCont.style.borderColor = "blue";
             computerGIFCont.style.borderColor = "blue";
     }
