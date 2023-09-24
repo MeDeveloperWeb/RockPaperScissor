@@ -133,7 +133,7 @@ function showResult(userChoice, computerChoice, winner, reset = false) {
             computerScore++;
             computerScoreBox.textContent = computerScore;
             resultBox.textContent = `You lose this round! ${computerChoice} beats ${userChoice}`;
-            resultBox.style.color = "red";
+            resultBox.style.color = "#b60303";
             userGIFCont.style.borderColor = "red";
             computerGIFCont.style.borderColor = "green";
             break;
