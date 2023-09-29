@@ -1,15 +1,12 @@
 // Setting the directory path according to where media files are stored
 const MEDIA_PATH = "media/";
 
-// Keeps count of the current round
-let round = 0;
-
 // Keep count of user and computer score
 let userScore = 0;
 let computerScore = 0;
 
 // Getting access to choice and Reset button
-const choiceButton = document.querySelector(".choice-maker");
+const choiceButtons = document.querySelectorAll(".choice");
 const resetButton = document.querySelector(".reset button")
 
 // User and Computer container
@@ -27,37 +24,15 @@ const choices = [
 ];
 
 /**
- * Resets the round and score counters to 0. Changes the page to its very initial state.
+ * Resets the score counters to 0. Changes the page to its very initial state.
  */
 function reset() {
     commentBox.textContent = "Wrap your belt and push the button!";
     commentBox.style.color = "black";
-    round = computerScore = userScore = 0;
+    computerScore = userScore = 0;
     document.querySelector(".choice-btn").style.display = "block";
     document.querySelector(".reset").style.display = "none";
     showResult("", "", "",true);
-}
-
-/**
- * Prompts user for a choice
- * @returns Index of array choices according to the user choice
- * @example 0 for rock, 1 for paper, 2 for scissor
- */
-function getUserChoiceIndex() {
-    // Prompt user for a choice.
-    const choice =  prompt("Choose: Rock✊, Paper🖐️ or Scissor✌️");
-    
-    // Loop through choice to check if the choice is valid
-    for (let i = 0; i < 3; i++) {
-        // If choice is valid return its index based on `choices` array
-        if (choice.trim().toLowerCase() === choices[i].toLowerCase()) return i;
-    }
-
-    // If wrong Choice give an alert
-    alert("Wrong Choice!!");
-
-    // Ask for a choice from user
-    return getUserChoiceIndex();
 }
 
 /**
@@ -102,7 +77,6 @@ function showResult(userChoice, computerChoice, winner, reset = false) {
     const resultBox = document.querySelector(".round-result b");
     const userScoreBox = userBox.querySelector(".score-cont .score");
     const computerScoreBox = computerBox.querySelector(".score-cont .score");
-    const roundBox = document.querySelector(".choice-btn .round-no");
     const userGIFCont = userBox.querySelector(".gif-cont");
     const computerGIFCont = computerBox.querySelector(".gif-cont");
 
@@ -110,13 +84,10 @@ function showResult(userChoice, computerChoice, winner, reset = false) {
     if (reset) {
         // Revert all changes
         resultBox.textContent = "";
-        userScoreBox.textContent = computerScoreBox.textContent = roundBox.textContent = 0;
+        userScoreBox.textContent = computerScoreBox.textContent = 0;
         userGIFCont.style.borderColor = computerGIFCont.style.borderColor = "gray";
         return;
     }
-    // Increment round Count
-    round++;
-    roundBox.textContent = round;
 
     // Change UI and increment score according to who wins
     switch (winner) {
@@ -150,8 +121,8 @@ function showResult(userChoice, computerChoice, winner, reset = false) {
  * Change comments and their colors according to the players game win or lose
  */
 function changeCommentary() {
-    // If 5 rounds are over Show the button to restart the game and hide The choice making button.
-    if (round === 5) {
+    // If any player has reached 5 points, Show the button to restart the game and hide The choice making button.
+    if (userScore === 5 || computerScore === 5) {
         document.querySelector(".choice-btn").style.display = "none";
         document.querySelector(".reset").style.display = "block";
         
@@ -159,13 +130,9 @@ function changeCommentary() {
             commentBox.textContent = "Well done! You won the game! Want to assert your dominance again?";
             commentBox.style.color = "#016201";
         }
-        else if (userScore < computerScore) {
+        else {
             commentBox.textContent = "Shame! You lost the game to a machine! Want to try again?";
             commentBox.style.color = "#b60303";
-        }
-        else {
-            commentBox.textContent = "Game ended in a tie! Do you want to replay?";
-            commentBox.style.color = "#020283";
         }
     }
     // Show comments based on who is winning
@@ -176,14 +143,16 @@ function changeCommentary() {
 
 /**
  * Implements main game logic
+ * @param {Event} e event containing user cice int its target id.
  */
-function playRound() {
+function playRound(e) {
+    console.log(1)
     // Get user and computer choice
-    const userSelection = getUserChoiceIndex();
+    const userSelection = +e.target.id;
     const computerSelection = getComputerChoiceIndex();
 
     // Disable the choice maker button temporarily
-    choiceButton.disabled = true;
+    choiceButtons.forEach(btn => btn.disabled = true);
     // Run the hand animation
     changeGIF();
 
@@ -198,13 +167,13 @@ function playRound() {
         showResult(choices[userSelection], choices[computerSelection], winner);
         changeGIF(choices[userSelection], choices[computerSelection]);
         changeCommentary();
-        choiceButton.disabled = false;
+        choiceButtons.forEach(btn => btn.disabled = false);
     }, 1000);
 
 }
 
 // On clicking choice button play game
-choiceButton.onclick = playRound;
+choiceButtons.forEach(btn => btn.onclick = playRound);
 
 // On clicking Reset button Reset everything as it was before.
 resetButton.onclick = reset;
